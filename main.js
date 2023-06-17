@@ -1,7 +1,7 @@
 import depthFirst from './src/depth-first.js';
 
-const WIDTH = 50;
-const HEIGHT = 50;
+const WIDTH = 35;
+const HEIGHT = 35;
 const STARTING_POS = [0, 0];
 const target = document.querySelector('#target');
 

@@ -1,0 +1,17 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #717171;
+  font-family: arial;
+}

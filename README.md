@@ -2,4 +2,6 @@
 
 ![thumbnail](/thumbnail.jpg)
 
-A depth first maze generation algorithm initally created during an 8 hour project jam
+**WIP: Migrating project to React and TS**
+
+The original can be found on the [`vanilla-js`](https://github.com/ethanernst/three-maze/tree/vanilla-js) branch

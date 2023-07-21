@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { getMazeCellValue } from '../../store/selectors';
+import { styled } from 'styled-components';
 
-type CellValue = `${'0' | '1'}${'0' | '1'}${'0' | '1'}${'0' | '1'}`;
+import { MazeCellCoords, RootState } from '../../types/types';
 
-interface CellValueProps {
-  value: CellValue;
+interface MazeCellProps {
+  coords: MazeCellCoords;
 }
 
+// styling
 const Cell = styled.td`
   background-color: lightgray;
   width: 20px;
@@ -14,9 +16,10 @@ const Cell = styled.td`
   padding: 0px;
 `;
 
-// key is in the format "x-y"
-function MazeCell({ value }: CellValueProps) {
-  const [cellValue, setCellValue] = useState(value || '1111');
+function MazeCell({ coords }: MazeCellProps) {
+  const cellValue = useSelector((state: RootState) =>
+    getMazeCellValue(state, coords)
+  );
 
   return <Cell id={cellValue} />;
 }

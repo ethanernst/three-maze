@@ -1,26 +1,31 @@
 import { styled } from 'styled-components';
 
-import Cell from './MazeCell';
+import MazeCell from './MazeCell';
+
+import { MazeCellCoords } from '../../types/types';
 
 interface MazeContainerProps {
   width: number;
   height: number;
-  start?: [x: number, y: number];
+  start?: MazeCellCoords;
 }
 
+// styling
 const Table = styled.table`
   border-collapse: collapse;
 `;
 
 function MazeContainer({ width, height }: MazeContainerProps) {
-  const generateMaze: () => JSX.Element[] = () => {
+  const initializeMaze: () => JSX.Element[] = () => {
     const cells: JSX.Element[] = [];
 
     for (let i = 0; i < height; i++) {
       const rowCells: JSX.Element[] = [];
 
       for (let j = 0; j < width; j++) {
-        rowCells.push(<Cell key={`${j}-${i}`} value="1111" />);
+        rowCells.push(
+          <MazeCell key={`${i},${j}`} coords={{ row: i, column: j }} />
+        );
       }
 
       cells.push(<tr key={i}>{rowCells}</tr>);
@@ -31,7 +36,7 @@ function MazeContainer({ width, height }: MazeContainerProps) {
 
   return (
     <Table>
-      <tbody>{generateMaze()}</tbody>
+      <tbody>{initializeMaze()}</tbody>
     </Table>
   );
 }

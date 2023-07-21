@@ -1,16 +1,22 @@
+import { useAppSelector } from './store/store';
+
 import MazeContainer from './components/maze/MazeContainer';
 import Layout from './components/layout/Layout';
-
 import './App.css';
 
-const WIDTH: number = 35;
-const HEIGHT: number = 35;
-const STARTING_POS: [x: number, y: number] = [0, 0];
+import { RootState } from './types/types';
 
 function App() {
+  const mazeParams = useAppSelector((state: RootState) => state.mazeSlice);
+  console.log(mazeParams);
+
   return (
     <Layout>
-      <MazeContainer width={WIDTH} height={HEIGHT} start={STARTING_POS} />
+      <MazeContainer
+        width={mazeParams.width}
+        height={mazeParams.height}
+        start={mazeParams.start}
+      />
     </Layout>
   );
 }

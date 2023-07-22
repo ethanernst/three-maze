@@ -1,7 +1,6 @@
-import { useSelector } from 'react-redux';
-import { getMazeCellValue } from '../../store/selectors';
 import { styled } from 'styled-components';
-
+import { useAppSelector } from '../../store/store';
+import { getMazeCellValue } from '../../store/selectors';
 import { MazeCellCoords, RootState } from '../../types/types';
 
 interface MazeCellProps {
@@ -17,7 +16,7 @@ const Cell = styled.td`
 `;
 
 function MazeCell({ coords }: MazeCellProps) {
-  const cellValue = useSelector((state: RootState) =>
+  const cellValue = useAppSelector((state: RootState) =>
     getMazeCellValue(state, coords)
   );
 

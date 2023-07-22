@@ -1,5 +1,12 @@
+import Options from './Options';
+
 function Layout(props: any) {
-  return <>{props.children}</>;
+  return (
+    <>
+      <Options />
+      {props.children}
+    </>
+  );
 }
 
 export default Layout;

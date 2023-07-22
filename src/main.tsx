@@ -7,8 +7,7 @@ import App from './App.tsx';
 import { Provider } from 'react-redux';
 import store from './store/store.ts';
 
-// styles
-import './index.css';
+// style
 import GlobalStyle from './styles/GlobalStyle';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

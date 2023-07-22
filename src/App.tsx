@@ -2,8 +2,6 @@ import { useAppSelector } from './store/store';
 
 import MazeContainer from './components/maze/MazeContainer';
 import Layout from './components/layout/Layout';
-import './App.css';
-
 import { RootState } from './types/types';
 
 function App() {

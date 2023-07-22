@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
 
 import MazeCell from './MazeCell';
-
 import { MazeCellCoords } from '../../types/types';
 
 interface MazeContainerProps {

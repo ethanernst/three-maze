@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { generateEmptyMaze } from './helpers';
 import {
   MazeSliceState,
   MazeCellValue,
@@ -28,6 +30,18 @@ export const mazeSlice = createSlice({
     setMaze: (state, action: PayloadAction<{ maze: MazeMatrix }>) => {
       const { maze } = action.payload;
       state.maze = maze;
+    },
+    clearMaze: (
+      state,
+      action: PayloadAction<{
+        width: number;
+        height: number;
+        start: MazeCellCoords;
+      }>
+    ) => {
+      const { width, height, start } = action.payload;
+      state.start = start;
+      state.maze = generateEmptyMaze(width, height);
     },
   },
 });

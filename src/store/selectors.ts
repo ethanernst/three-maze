@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+
 import { RootState, MazeMatrix, MazeCellCoords } from '../types/types';
 
 export const getMazeMatrix = (state: RootState): MazeMatrix =>

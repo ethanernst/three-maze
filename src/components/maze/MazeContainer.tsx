@@ -18,16 +18,14 @@ function MazeContainer({ width, height }: MazeContainerProps) {
   const initializeMaze: () => JSX.Element[] = () => {
     const cells: JSX.Element[] = [];
 
-    for (let i = 0; i < height; i++) {
+    for (let y = 0; y < height; y++) {
       const rowCells: JSX.Element[] = [];
 
-      for (let j = 0; j < width; j++) {
-        rowCells.push(
-          <MazeCell key={`${i},${j}`} coords={{ row: i, column: j }} />
-        );
+      for (let x = 0; x < width; x++) {
+        rowCells.push(<MazeCell key={`${x},${y}`} coords={{ x: x, y: y }} />);
       }
 
-      cells.push(<tr key={i}>{rowCells}</tr>);
+      cells.push(<tr key={y}>{rowCells}</tr>);
     }
 
     return cells;

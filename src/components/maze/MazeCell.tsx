@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+
 import { useAppSelector } from '../../store/store';
 import { getMazeCellValue } from '../../store/selectors';
 import { MazeCellCoords, RootState } from '../../types/types';
@@ -19,6 +20,8 @@ function MazeCell({ coords }: MazeCellProps) {
   const cellValue = useAppSelector((state: RootState) =>
     getMazeCellValue(state, coords)
   );
+
+  console.log(coords, cellValue);
 
   return <Cell id={cellValue} />;
 }

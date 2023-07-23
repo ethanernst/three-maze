@@ -1,18 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { generateEmptyMaze } from './helpers';
-import {
-  MazeSliceState,
-  MazeCellValue,
-  MazeCellCoords,
-  MazeMatrix,
-} from '../types/types';
+import { generateEmptyMazeMap } from './helpers';
+import { MazeSliceState, MazeCellValue, MazeCellCoords } from '../types/types';
 
 const initialState: MazeSliceState = {
   width: 0,
   height: 0,
-  start: { row: 0, column: 0 },
-  maze: [],
+  start: { x: 0, y: 0 },
+  maze: new Map(),
   solution: [],
 };
 
@@ -25,11 +20,8 @@ export const mazeSlice = createSlice({
       action: PayloadAction<{ coords: MazeCellCoords; value: MazeCellValue }>
     ) => {
       const { coords, value } = action.payload;
-      state.maze[coords.row][coords.column] = value;
-    },
-    setMaze: (state, action: PayloadAction<{ maze: MazeMatrix }>) => {
-      const { maze } = action.payload;
-      state.maze = maze;
+      const coordinateKey: string = `${coords.x}_${coords.y}`;
+      state.maze.set(coordinateKey, value);
     },
     clearMaze: (
       state,
@@ -41,10 +33,10 @@ export const mazeSlice = createSlice({
     ) => {
       const { width, height, start } = action.payload;
       state.start = start;
-      state.maze = generateEmptyMaze(width, height);
+      state.maze = generateEmptyMazeMap(width, height);
     },
   },
 });
 
 export default mazeSlice.reducer;
-export const { setCell, setMaze } = mazeSlice.actions;
+export const { setCell, clearMaze } = mazeSlice.actions;

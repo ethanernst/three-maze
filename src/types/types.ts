@@ -1,8 +1,8 @@
 export type MazeCellValue = `${'0' | '1'}${'0' | '1'}${'0' | '1'}${'0' | '1'}`;
 
-export type MazeCellCoords = { row: number; column: number };
+export type MazeCellCoords = { x: number; y: number };
 
-export type MazeMatrix = MazeCellValue[][];
+export type MazeMap = Map<string, MazeCellValue>;
 
 export type MazeSolution = MazeCellCoords[];
 
@@ -14,6 +14,6 @@ export interface MazeSliceState {
   width: number;
   height: number;
   start: MazeCellCoords;
-  maze: MazeMatrix;
+  maze: MazeMap;
   solution: MazeSolution | undefined;
 }

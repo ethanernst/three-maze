@@ -1,37 +1,49 @@
-// import { createSelector } from 'reselect';
+import { createSelector } from 'reselect';
 
-import {
-  RootState,
-  MazeMap,
-  MazeCellCoords,
-  MazeCellValue,
-} from '../types/types';
+import { generateCoordinateKey } from './helpers';
+import { RootState, MazeCellCoords, MazeCellValue } from '../types/types';
 
-export const getMazeMap = (state: RootState): MazeMap => state.mazeSlice.maze;
+export const getMazeSliceState = createSelector(
+  (state: RootState) => state.mazeSlice,
+  mazeSliceState => mazeSliceState
+);
 
-export const getMazeCellValue = (
-  state: RootState,
-  coords: MazeCellCoords
-): MazeCellValue | undefined => {
-  const coordinateKey: string = `${coords.x}_${coords.y}`;
-  return state.mazeSlice.maze.get(coordinateKey);
-};
+export const getMazeParams = createSelector(
+  [
+    (state: RootState) => state.mazeSlice.width,
+    (state: RootState) => state.mazeSlice.height,
+    (state: RootState) => state.mazeSlice.start,
+  ],
+  (width, height, start) => {
+    return { width, height, start };
+  }
+);
 
-// export const getSurroundingCellValues = createSelector(
-//   [
-//     getMazeMatrix,
-//     (_: RootState, coords: MazeCellCoords): MazeCellCoords => ({
-//       row: coords.row,
-//       column: coords.column,
-//     }),
-//   ],
-//   (maze, { row, column }) => {
-//     const surroundingCells: MazeCellCoords[] = [];
+export const getMazeObject = createSelector(
+  (state: RootState) => state.mazeSlice.maze,
+  maze => maze
+);
 
-//     surroundingCells.push(maze[row - 1][column]); // up
-//     surroundingCells.push(maze[row + 1][column]); // down
-//     surroundingCells.push(maze[row][column - 1]); // left
-//     surroundingCells.push(maze[row][column + 1]); // right
-//     console.log(surroundingCells);
-//   }
-// );
+export const getCellValue = createSelector(
+  [getMazeObject, (_: RootState, coords: MazeCellCoords) => coords],
+  (maze, coords): MazeCellValue => {
+    const coordinateKey = generateCoordinateKey(coords);
+    return maze[coordinateKey];
+  }
+);
+
+export const getSurroundingCellValues = createSelector(
+  [(state: RootState, _) => state, (_, coords: MazeCellCoords) => coords],
+  (state, coords): MazeCellValue[] => {
+    const surroundingCells: MazeCellValue[] = [];
+
+    surroundingCells.push(
+      getCellValue(state, { x: coords.x, y: coords.y - 1 }), // up
+      getCellValue(state, { x: coords.x, y: coords.y + 1 }), // down
+      getCellValue(state, { x: coords.x - 1, y: coords.y }), // left
+      getCellValue(state, { x: coords.x + 1, y: coords.y }) //right
+    );
+
+    return surroundingCells;
+  }
+);

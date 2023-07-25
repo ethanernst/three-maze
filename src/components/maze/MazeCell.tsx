@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 import { useAppSelector } from '../../store/store';
-import { getMazeCellValue } from '../../store/selectors';
+import { getCellValue, getSurroundingCellValues } from '../../store/selectors';
 import { MazeCellCoords, RootState } from '../../types/types';
 
 interface MazeCellProps {
@@ -18,12 +18,19 @@ const Cell = styled.td`
 
 function MazeCell({ coords }: MazeCellProps) {
   const cellValue = useAppSelector((state: RootState) =>
-    getMazeCellValue(state, coords)
+    getCellValue(state, coords)
   );
 
-  console.log(coords, cellValue);
+  if (coords.x === 0 && coords.y === 0) {
+    console.log(coords, cellValue);
+    console.log(
+      useAppSelector((state: RootState) =>
+        getSurroundingCellValues(state, coords)
+      )
+    );
+  }
 
-  return <Cell id={cellValue} />;
+  return <Cell id={cellValue || '1111'} />;
 }
 
 export default MazeCell;
